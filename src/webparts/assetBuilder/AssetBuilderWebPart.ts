@@ -29,7 +29,7 @@ export interface IAssetBuilderWebPartProps {
 
 const LOG_SOURCE: string = 'RedirectApplicationCustomizer';
 
-const createThisList = 'TestList'
+const createThisList = 'TestList2'
 
 export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBuilderWebPartProps> {
 
@@ -58,7 +58,7 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
 
     try {
       const ensureResult = await sp.web.lists.ensure(createThisList,
-        "Redirections",
+        "My List Description",
         100,
         true);
 
@@ -70,51 +70,77 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
           //https://pnp.github.io/pnpjs/sp/lists/#ensure-that-a-list-exists-by-title
           //https://pnp.github.io/pnpjs/sp/fields/
 
+          //Add this after creating field to change title:  //await field1.field.update({ Title: "My Text"});
 
-          const choices = [`ChoiceA`, `ChoiceB`, `ChoiceC`];
+          let columnGroup = 'Socialiis';
 
-          const field1: IFieldAddResult = await ensureResult.list.fields.addText("MyText", 255, { Group: "My Group" });
-          await field1.field.update({ Title: "My Text"});
+          const field2: IFieldAddResult = await ensureResult.list.fields.addText("keywords", 255, { Group: columnGroup });
 
-          const field2: IFieldAddResult = await ensureResult.list.fields.addChoice("MyChoice", choices, ChoiceFieldFormatType.Dropdown, false, { Group: "My Group" });
-          await field2.field.update({ Title: "My Choices"});
+          const field3: IFieldAddResult = await ensureResult.list.fields.addText("profilePic", 255, { Group: columnGroup });
 
-          const field3 = await ensureResult.list.fields.addCalculated("MyCalculation", "=Modified+1", DateTimeFieldFormatType.DateOnly, FieldTypes.DateTime, { Group: "MyGroup" });
-          await field3.field.update({ Title: "My Calculation"});
+          const field4: IFieldAddResult = await ensureResult.list.fields.addNumber("order", 0, 99, { Group: columnGroup, DefaultFormula: "99" });
 
+          const field5: IFieldAddResult = await ensureResult.list.fields.addText("NavTitle", 255, { Group: columnGroup });
+
+          const choices = ['blog','facebook','feed','github','home','instagram','linkedIn','location','office365-SPList','office365-SPPage','office365-SPSite','office365-team','office365-user','office365-YammerGroup','office365-YammerUser','office365-YammerSearch','stackExchange','stock','twitter','website','wikipedia','youtube-user','youtube-playlist','youtube-channel','youtube-video'];
+          const field6: IFieldAddResult = await ensureResult.list.fields.addChoice("mediaObject", choices, ChoiceFieldFormatType.Dropdown, false, { Group: columnGroup });
+
+          const field7: IFieldAddResult = await ensureResult.list.fields.addText("objectID", 255, { Group: columnGroup });
+
+          const field8: IFieldAddResult = await ensureResult.list.fields.addText("url", 255, { Group: columnGroup });
+
+          const field20 = await ensureResult.list.fields.addCalculated("mediaSource", 
+          '=IF(ISNUMBER(FIND("-",mediaObject)),TRIM(LEFT(mediaObject,FIND("-",mediaObject)-1)),TRIM(mediaObject))', 
+          DateTimeFieldFormatType.DateTime, FieldTypes.Text, { Group: columnGroup });
+
+          const field21 = await ensureResult.list.fields.addCalculated("objectType", 
+          '=IF(ISNUMBER(FIND("-",mediaObject)),TRIM(MID(mediaObject,FIND("-",mediaObject)+1,100)),"")', 
+          DateTimeFieldFormatType.DateTime, FieldTypes.Text, { Group: columnGroup });
+
+
+          /* Url Field Sample
           const sourceUrlFieldAddResult: IFieldAddResult = await ensureResult.list.fields.addUrl(
             "PnPSourceUrl", UrlFieldFormatType.Hyperlink,
             { Required: true });
           await sourceUrlFieldAddResult.field.update({ Title: "Source URL"});
-          const destinationUrlFieldAddResult: IFieldAddResult = await ensureResult.list.fields.addUrl(
-            "PnPDestinationUrl", UrlFieldFormatType.Hyperlink,
-            { Required: true });
-          await destinationUrlFieldAddResult.field.update({ Title: "Destination URL"});
+          */
+
+          /* Boolean Field Sample
           const redirectionEnabledFieldAddResult: IFieldAddResult = await ensureResult.list.fields.addBoolean(
             "PnPRedirectionEnabled",
             { Required: true });
           await redirectionEnabledFieldAddResult.field.update({ Title: "Redirection Enabled"});
+          */
 
           // the list is ready to be used
           result = true;
         } else {
-          // the list already exists, double check the fields
+          // the list already exists, double check the fields objectID
           try {
-            const sourceUrlField = await ensureResult.list.fields.getByInternalNameOrTitle("PnPSourceUrl").get();
-            const destinationUrlField = await ensureResult.list.fields.getByInternalNameOrTitle("PnPDestinationUrl").get();
-            const redirectionEnabledField = await ensureResult.list.fields.getByInternalNameOrTitle("PnPRedirectionEnabled").get();
+            const field2 = await ensureResult.list.fields.getByInternalNameOrTitle("keywords").get();
+            const field3 = await ensureResult.list.fields.getByInternalNameOrTitle("profilePic").get();
+            const field4 = await ensureResult.list.fields.getByInternalNameOrTitle("order").get();
+            const field5 = await ensureResult.list.fields.getByInternalNameOrTitle("NavTitle").get();
+            const field6 = await ensureResult.list.fields.getByInternalNameOrTitle("mediaSource").get();
+            const field7 = await ensureResult.list.fields.getByInternalNameOrTitle("objectID").get();
+            const field8 = await ensureResult.list.fields.getByInternalNameOrTitle("url").get();
+            //const field9 = await ensureResult.list.fields.getByInternalNameOrTitle("PnPRedirectionEnabled").get();
+            //const field10 = await ensureResult.list.fields.getByInternalNameOrTitle("PnPRedirectionEnabled").get();
+            //const field11 = await ensureResult.list.fields.getByInternalNameOrTitle("PnPRedirectionEnabled").get();
+            const field20 = await ensureResult.list.fields.getByInternalNameOrTitle("mediaSource").get();
+            const field21 = await ensureResult.list.fields.getByInternalNameOrTitle("objectType").get();
 
             // if it is all good, then the list is ready to be used
             result = true;
           } catch (e) {
             // if any of the fields does not exist, raise an exception in the console log
-            console.log(`The ${createThisList} list does not match the expected fields definition.`);
+            console.log(`The ${createThisList} list does not match the expected fields definition.`, e, e.odata.error.message);
           }
         }
       }
     } catch (e) {
       // if we fail to create the list, raise an exception in the console log
-      console.log(`Failed to create custom list ${createThisList}.`);
+      console.log(`Failed to create custom list ${createThisList}.`, e, e.error);
     }
 
     return(result);
