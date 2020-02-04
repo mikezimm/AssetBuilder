@@ -210,6 +210,9 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
 
           const ccEmail: IFieldAddResult = await ensureResult.list.fields.addText("CCEmail", 255, { Group: columnGroup });
 
+          const tbdInfo1: IFieldAddResult = await ensureResult.list.fields.addText("zzzTBDInfo1", 255, { Group: columnGroup, hidden: true });
+          const tbdInfo2: IFieldAddResult = await ensureResult.list.fields.addText("zzzTBDInfo2", 255, { Group: columnGroup, hidden: true });
+
           if (isTime) { //Fields specific for Time
             let minInfinity: number = -1.7976931348623157e+308;
             let maxInfinity = -1 * minInfinity ;
@@ -220,6 +223,7 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
             const endTime: IFieldAddResult = await ensureResult.list.fields.addDateTime("EndTime", DateTimeFieldFormatType.DateTime, CalendarType.Gregorian, DateTimeFieldFriendlyFormatType.Disabled, { Group: columnGroup, Required: true });
             const startTime: IFieldAddResult = await ensureResult.list.fields.addDateTime("StartTime", DateTimeFieldFormatType.DateTime, CalendarType.Gregorian, DateTimeFieldFriendlyFormatType.Disabled, { Group: columnGroup, Required: true });
             const sourceProject: IFieldAddResult = await ensureResult.list.fields.addUrl("SourceProject", UrlFieldFormatType.Hyperlink, { Group: columnGroup });
+            const sourceProjectRef: IFieldAddResult = await ensureResult.list.fields.addText("SourceProjectRef", 255, { Group: columnGroup });
 
             const user: IFieldAddResult = await ensureResult.list.fields.addUser("User", FieldUserSelectionMode.PeopleOnly, { Group: "My Group" });
             const settings: IFieldAddResult = await ensureResult.list.fields.addText("Settings", 255, { Group: columnGroup });
@@ -233,10 +237,7 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
             const hours: IFieldAddResult = await ensureResult.list.fields.addCalculated("Hours", '=IFERROR(24*(EndTime-StartTime),"")', DateTimeFieldFormatType.DateOnly, FieldTypes.Number, { Group: columnGroup });
             const minutes: IFieldAddResult = await ensureResult.list.fields.addCalculated("Minutes", '=IFERROR(24*60*(EndTime-StartTime),"")', DateTimeFieldFormatType.DateOnly, FieldTypes.Number, { Group: columnGroup });
 
-
-
           }
-
 
           let viewXml = '';
           if (isTime) { //View schema specific for Time
@@ -282,6 +283,8 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
           alert(`Hey there!  Your ${myListName} list is all ready to go!`);
         } else {
           // the list already exists, double check the fields objectID
+
+          console.log('what about this?');
           try {
             const field2 = await ensureResult.list.fields.getByInternalNameOrTitle("Active").get();
             if (isProject) { const field3 = await ensureResult.list.fields.getByInternalNameOrTitle("SortOrder").get(); }
@@ -295,6 +298,26 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
             if (isProject) { const field22 = await ensureResult.list.fields.getByInternalNameOrTitle("TimeTarget").get(); }
             const field23 = await ensureResult.list.fields.getByInternalNameOrTitle("CCList").get();
             const field24 = await ensureResult.list.fields.getByInternalNameOrTitle("CCEmail").get();
+
+            if (isTime) { //Fields specific for Time
+
+              const field10 = await ensureResult.list.fields.getByInternalNameOrTitle("Activity").get();
+              const field11 = await ensureResult.list.fields.getByInternalNameOrTitle("DeltaT").get();
+              const field12 = await ensureResult.list.fields.getByInternalNameOrTitle("Comments").get();
+              const field13 = await ensureResult.list.fields.getByInternalNameOrTitle("EndTime").get();
+              const field14 = await ensureResult.list.fields.getByInternalNameOrTitle("StartTime").get();
+              const field15 = await ensureResult.list.fields.getByInternalNameOrTitle("SourceProject").get();
+              const field16 = await ensureResult.list.fields.getByInternalNameOrTitle("SourceProjectRef").get();
+              const field17 = await ensureResult.list.fields.getByInternalNameOrTitle("User").get();
+              const field18 = await ensureResult.list.fields.getByInternalNameOrTitle("Settings").get();
+              const field19 = await ensureResult.list.fields.getByInternalNameOrTitle("Location").get();
+              const field25 = await ensureResult.list.fields.getByInternalNameOrTitle("EntryType").get();
+              const field26 = await ensureResult.list.fields.getByInternalNameOrTitle("Days").get();
+              const field27 = await ensureResult.list.fields.getByInternalNameOrTitle("Hours").get();
+              const field28 = await ensureResult.list.fields.getByInternalNameOrTitle("Minutes").get();
+  
+            }
+  
             // if it is all good, then the list is ready to be used
             result = true;
             console.log(`Your ${myListName} list is already set up!`);
@@ -302,6 +325,7 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
           } catch (e) {
             // if any of the fields does not exist, raise an exception in the console log
             let errMessage = this.getHelpfullError(e);
+            alert(`The ${myListName} list had this error so the webpart may not work correctly unless fixed:  ` + errMessage);
             console.log(`The ${myListName} list had this error:`, errMessage);
 
           }
