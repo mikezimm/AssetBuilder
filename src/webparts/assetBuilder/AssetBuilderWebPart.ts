@@ -41,6 +41,17 @@ import { getHelpfullError, } from '../../services/ErrorHandler';
 
 export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBuilderWebPartProps> {
 
+  /***
+ *          .d88b.  d8b   db d888888b d8b   db d888888b d888888b 
+ *         .8P  Y8. 888o  88   `88'   888o  88   `88'   `~~88~~' 
+ *         88    88 88V8o 88    88    88V8o 88    88       88    
+ *         88    88 88 V8o88    88    88 V8o88    88       88    
+ *         `8b  d8' 88  V888   .88.   88  V888   .88.      88    
+ *          `Y88P'  VP   V8P Y888888P VP   V8P Y888888P    YP    
+ *                                                               
+ *                                                               
+ */
+
   @override
   public async onInit(): Promise<void> {
 
@@ -59,6 +70,44 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
 
   }
 
+  /***
+ *         .d8888.  .d88b.   .o88b. d888888b  .d8b.  db      d888888b d888888b .d8888. d88888D 
+ *         88'  YP .8P  Y8. d8P  Y8   `88'   d8' `8b 88        `88'     `88'   88'  YP VP  d8' 
+ *         `8bo.   88    88 8P         88    88ooo88 88         88       88    `8bo.      d8'  
+ *           `Y8b. 88    88 8b         88    88~~~88 88         88       88      `Y8b.   d8'   
+ *         db   8D `8b  d8' Y8b  d8   .88.   88   88 88booo.   .88.     .88.   db   8D  d8'    
+ *         `8888Y'  `Y88P'   `Y88P' Y888888P YP   YP Y88888P Y888888P Y888888P `8888Y' d8'     
+ *                                                                                             
+ *                                                                                             
+ */
+
+ 
+
+  private CreateSocialiis7List(oldVal: any): any {
+
+    let listName = this.properties.localListName ? this.properties.localListName : 'Entities';
+    let listDesc = 'Hey, this may actually work!';
+    console.log('CreateSocialiis7List: oldVal', oldVal);
+    let listCreated = this.ensureSocialiis7List(listName, listDesc);
+
+    if ( listCreated ) { 
+      this.properties.localListName= listName;
+      this.properties.localListConfirmed= true;
+      
+    }
+    return "Finished";  
+  } 
+
+  /***
+ *         d88888b d8b   db .d8888. db    db d8888b. d88888b 
+ *         88'     888o  88 88'  YP 88    88 88  `8D 88'     
+ *         88ooooo 88V8o 88 `8bo.   88    88 88oobY' 88ooooo 
+ *         88~~~~~ 88 V8o88   `Y8b. 88    88 88`8b   88~~~~~ 
+ *         88.     88  V888 db   8D 88b  d88 88 `88. 88.     
+ *         Y88888P VP   V8P `8888Y' ~Y8888P' 88   YD Y88888P 
+ *                                                           
+ *                                                           
+ */
   // this method ensures that the Redirections lists exists, or if it doesn't exist
   // it creates it, as long as the currently connected user has proper permissions
   private async ensureSocialiis7List(myListName: string, myListDesc: string): Promise<boolean> {
@@ -149,6 +198,63 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
 
     return(result);
   }
+
+
+  /***
+ *         d888888b d8888b.  .d8b.   .o88b. db   dD d888888b d888888b .88b  d88. d88888b 
+ *         `~~88~~' 88  `8D d8' `8b d8P  Y8 88 ,8P' `~~88~~'   `88'   88'YbdP`88 88'     
+ *            88    88oobY' 88ooo88 8P      88,8P      88       88    88  88  88 88ooooo 
+ *            88    88`8b   88~~~88 8b      88`8b      88       88    88  88  88 88~~~~~ 
+ *            88    88 `88. 88   88 Y8b  d8 88 `88.    88      .88.   88  88  88 88.     
+ *            YP    88   YD YP   YP  `Y88P' YP   YD    YP    Y888888P YP  YP  YP Y88888P 
+ *                                                                                       
+ *                                                                                       
+ */
+ 
+private CreateTTIMTimeList(oldVal: any): any {
+
+  let listName = this.properties.localListName ? this.properties.localListName : 'TrackMyTime';
+  let listDesc = 'TrackMyTime list for TrackMyTime Webpart';
+  console.log('CreateTTIMTimeList: oldVal', oldVal);
+
+  let listCreated = this.ensureTrackTimeList(listName, listDesc, 'TrackMyTime');
+  
+  if ( listCreated ) { 
+    this.properties.localListName= listName;
+    this.properties.localListConfirmed= true;
+    
+  }
+   return "Finished";  
+} 
+
+private CreateTTIMProjectList(oldVal: any): any {
+
+  let listName = this.properties.localListName ? this.properties.localListName : 'Projects';
+  let listDesc = 'Projects list for TrackMyTime Webpart';
+  console.log('CreateTTIMProjectList: oldVal', oldVal);
+
+  let listCreated = this.ensureTrackTimeList(listName, listDesc, 'Project');
+  
+  if ( listCreated ) { 
+    this.properties.localListName= listName;
+    this.properties.localListConfirmed= true;
+    
+  }
+   return "Finished";  
+} 
+
+
+ 
+  /***
+ *         d88888b d8b   db .d8888. db    db d8888b. d88888b 
+ *         88'     888o  88 88'  YP 88    88 88  `8D 88'     
+ *         88ooooo 88V8o 88 `8bo.   88    88 88oobY' 88ooooo 
+ *         88~~~~~ 88 V8o88   `Y8b. 88    88 88`8b   88~~~~~ 
+ *         88.     88  V888 db   8D 88b  d88 88 `88. 88.     
+ *         Y88888P VP   V8P `8888Y' ~Y8888P' 88   YD Y88888P 
+ *                                                           
+ *                                                           
+ */
 
   private async ensureTrackTimeList(myListName: string, myListDesc: string, ProjectOrTime: string): Promise<boolean> {
     
@@ -339,54 +445,153 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
     return(result);
   }
 
-  private CreateTTIMTimeList(oldVal: any): any {
 
-    let listName = this.properties.localListName ? this.properties.localListName : 'TrackMyTime';
-    let listDesc = 'TrackMyTime list for TrackMyTime Webpart';
-    console.log('CreateTTIMTimeList: oldVal', oldVal);
+  
+  /***
+ *          .d88b.  db    db d8888b. d888888b d888888b db      d88888b .d8888. 
+ *         .8P  Y8. 88    88 88  `8D `~~88~~'   `88'   88      88'     88'  YP 
+ *         88    88 88    88 88oobY'    88       88    88      88ooooo `8bo.   
+ *         88    88 88    88 88`8b      88       88    88      88~~~~~   `Y8b. 
+ *         `8b  d8' 88b  d88 88 `88.    88      .88.   88booo. 88.     db   8D 
+ *          `Y88P'  ~Y8888P' 88   YD    YP    Y888888P Y88888P Y88888P `8888Y' 
+ *                                                                             
+ *                                                                             
+ */
+ 
+private CreateOurTilesList(oldVal: any): any {
 
-    let listCreated = this.ensureTrackTimeList(listName, listDesc, 'TrackMyTime');
+  let listName = this.properties.localListName ? this.properties.localListName : 'OurTiles';
+  let listDesc = 'Hey, this may actually work!';
+  console.log('CreateOurTilesList: oldVal', oldVal);
+  let listCreated = this.ensureOurTilesList(listName, listDesc);
+
+  if ( listCreated ) { 
+    this.properties.localListName= listName;
+    this.properties.localListConfirmed= true;
     
-    if ( listCreated ) { 
-      this.properties.localListName= listName;
-      this.properties.localListConfirmed= true;
-      
+  }
+   return "Finished";  
+} 
+
+ /***
+ *         d88888b d8b   db .d8888. db    db d8888b. d88888b 
+ *         88'     888o  88 88'  YP 88    88 88  `8D 88'     
+ *         88ooooo 88V8o 88 `8bo.   88    88 88oobY' 88ooooo 
+ *         88~~~~~ 88 V8o88   `Y8b. 88    88 88`8b   88~~~~~ 
+ *         88.     88  V888 db   8D 88b  d88 88 `88. 88.     
+ *         Y88888P VP   V8P `8888Y' ~Y8888P' 88   YD Y88888P 
+ *                                                           
+ *                                                           
+ */
+
+
+private async ensureOurTilesList(myListName: string, myListDesc: string): Promise<boolean> {
+  //https://pnp.github.io/pnpjs/sp/lists/#ensure-that-a-list-exists-by-title
+  //https://pnp.github.io/pnpjs/sp/fields/
+  //Use ensureSocialiis function as a sample
+  alert('Hey!  Press OK to start!');
+  let result: boolean = false;
+
+  try {
+    const ensureResult = await sp.web.lists.ensure(myListName,
+      myListDesc,
+      100,
+      true);
+
+    // if we've got the list
+    if (ensureResult.list != null) {
+      // if the list has just been created
+      if (ensureResult.created) {
+        // we need to add the custom fields to the list
+        //https://pnp.github.io/pnpjs/sp/lists/#ensure-that-a-list-exists-by-title
+        //https://pnp.github.io/pnpjs/sp/fields/
+
+        //Add this after creating field to change title:  //await field1.field.update({ Title: "My Text"});
+
+        let columnGroup = 'OurTiles';
+
+/***
+ *                              .o88b.  .d88b.  db      db    db .88b  d88. d8b   db .d8888. 
+ *                             d8P  Y8 .8P  Y8. 88      88    88 88'YbdP`88 888o  88 88'  YP 
+ *                             8P      88    88 88      88    88 88  88  88 88V8o 88 `8bo.   
+ *                             8b      88    88 88      88    88 88  88  88 88 V8o88   `Y8b. 
+ *                             Y8b  d8 `8b  d8' 88booo. 88b  d88 88  88  88 88  V888 db   8D 
+ *                              `Y88P'  `Y88P'  Y88888P ~Y8888P' YP  YP  YP VP   V8P `8888Y' 
+ *                                                                                           
+ *                                                                                           
+ */
+
+        //Sample create fields:  
+        /*
+        let fieldSchema = '<Field Type="Text" DisplayName="profilePic" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" ID="{571ed868-4226-472b-bc34-d783b00d8931}" SourceID="{60fda9ed-9447-4d2f-91fb-2d6b7eadd064}" StaticName="profilePic" Name="profilePic" ColName="nvarchar5" RowOrdinal="0" CustomFormatter="" Version="1"><Default>myDefaultValue</Default></Field>';
+        const fieldXX: IFieldAddResult = await ensureResult.list.fields.createFieldAsXml(fieldSchema);
+
+        const field2: IFieldAddResult = await ensureResult.list.fields.addText("keywords", 255, { Group: columnGroup });
+        */
+
+
+
+
+/***
+ *                             db    db d888888b d88888b db   d8b   db .d8888. 
+ *                             88    88   `88'   88'     88   I8I   88 88'  YP 
+ *                             Y8    8P    88    88ooooo 88   I8I   88 `8bo.   
+ *                             `8b  d8'    88    88~~~~~ Y8   I8I   88   `Y8b. 
+ *                              `8bd8'    .88.   88.     `8b d8'8b d8' db   8D 
+ *                                YP    Y888888P Y88888P  `8b8' `8d8'  `8888Y' 
+ *                                                                             
+ *                                                                             
+ */
+
+        /*  Example of View building
+        viewXml = '<View Name="{B02AD2F6-34B3-4AF9-BA56-4B29BF28C49E}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="/sites/Templates/Tmt/Lists/Projects/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47"><ViewFields><FieldRef Name="ID" /><FieldRef Name="Active" /><FieldRef Name="SortOrder" /><FieldRef Name="LinkTitle" /><FieldRef Name="Everyone" /><FieldRef Name="Leader" /><FieldRef Name="Team" /><FieldRef Name="Category1" /><FieldRef Name="Category2" /><FieldRef Name="ProjectID1" /><FieldRef Name="ProjectID2" /><FieldRef Name="TimeTarget" /><FieldRef Name="CCList" /><FieldRef Name="CCEmail" /></ViewFields><ViewData /><Query><OrderBy><FieldRef Name="SortOrder" /></OrderBy></Query><Aggregations Value="Off" /><RowLimit Paged="TRUE">30</RowLimit><Mobile MobileItemLimit="3" MobileSimpleViewField="Active" /><CustomFormatter /><Toolbar Type="Standard" /><XslLink Default="TRUE">main.xsl</XslLink><JSLink>clienttemplates.js</JSLink><ParameterBindings><ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" /><ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_DEFAULT)" /></ParameterBindings></View>';
+        await ensureResult.list.views.getByTitle('All Items').setViewXml(viewXml);
+        */
+
+
+
+
+
+        // the list is ready to be used
+        result = true;
+        alert(`Hey there!  Your ${myListName} list is all ready to go!`);
+      } else {
+        // the list already exists, double check the fields objectID
+        try {
+          //const field9 = await ensureResult.list.fields.getByInternalNameOrTitle("PnPRedirectionEnabled").get();
+
+          // if it is all good, then the list is ready to be used
+          result = true;
+          console.log(`Your ${myListName} list is already set up!`);
+          alert(`Your ${myListName} list is already set up!`);
+        } catch (e) {
+          // if any of the fields does not exist, raise an exception in the console log
+          let errMessage = getHelpfullError(e);
+          console.log(`The ${myListName} list had this error:`, errMessage);
+
+        }
+      }
     }
-     return "Finished";  
-  } 
+  } catch (e) {
+    // if we fail to create the list, raise an exception in the console log
+    console.log(`Failed to create custom list ${myListName}.`, e, e.error);
+  }
 
-  private CreateTTIMProjectList(oldVal: any): any {
+  return(result);
 
-    let listName = this.properties.localListName ? this.properties.localListName : 'Projects';
-    let listDesc = 'Projects list for TrackMyTime Webpart';
-    console.log('CreateTTIMProjectList: oldVal', oldVal);
-
-    let listCreated = this.ensureTrackTimeList(listName, listDesc, 'Project');
-    
-    if ( listCreated ) { 
-      this.properties.localListName= listName;
-      this.properties.localListConfirmed= true;
-      
-    }
-     return "Finished";  
-  } 
+}
 
 
-  private CreateSocialiis7List(oldVal: any): any {
-
-    let listName = this.properties.localListName ? this.properties.localListName : 'Entities';
-    let listDesc = 'Hey, this may actually work!';
-    console.log('CreateSocialiis7List: oldVal', oldVal);
-    let listCreated = this.ensureSocialiis7List(listName, listDesc);
-
-    if ( listCreated ) { 
-      this.properties.localListName= listName;
-      this.properties.localListConfirmed= true;
-      
-    }
-     return "Finished";  
-  } 
-
+  /***
+ *         d8888b. d88888b d8b   db d8888b. d88888b d8888b. 
+ *         88  `8D 88'     888o  88 88  `8D 88'     88  `8D 
+ *         88oobY' 88ooooo 88V8o 88 88   88 88ooooo 88oobY' 
+ *         88`8b   88~~~~~ 88 V8o88 88   88 88~~~~~ 88`8b   
+ *         88 `88. 88.     88  V888 88  .8D 88.     88 `88. 
+ *         88   YD Y88888P VP   V8P Y8888D' Y88888P 88   YD 
+ *                                                          
+ *                                                          
+ */
 
   public render(): void {
     const element: React.ReactElement<IAssetBuilderProps > = React.createElement(
@@ -406,6 +611,17 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
+
+  /***
+ *         d8888b. d8888b.  .d88b.  d8888b.      d8888b.  .d8b.  d8b   db d88888b 
+ *         88  `8D 88  `8D .8P  Y8. 88  `8D      88  `8D d8' `8b 888o  88 88'     
+ *         88oodD' 88oobY' 88    88 88oodD'      88oodD' 88ooo88 88V8o 88 88ooooo 
+ *         88~~~   88`8b   88    88 88~~~        88~~~   88~~~88 88 V8o88 88~~~~~ 
+ *         88      88 `88. `8b  d8' 88           88      88   88 88  V888 88.     
+ *         88      88   YD  `Y88P'  88           88      YP   YP VP   V8P Y88888P 
+ *                                                                                
+ *                                                                                
+ */
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -439,9 +655,16 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
                  buttonType: PropertyPaneButtonType.Normal,  
                  onClick: this.CreateTTIMTimeList.bind(this)
                 }),
+
+                PropertyPaneButton('CreateOurTilesList',  
+                {  
+                 text: "Create/Verify OurTiles List",  
+                 buttonType: PropertyPaneButtonType.Normal,  
+                 onClick: this.CreateOurTilesList.bind(this)
+                }),
                 
                 PropertyPaneLabel('confirmation', {
-                  text: this.properties.localListConfirmed ? this.properties.localListName + ' List is available' : 'Verify or Create your list!'
+                  text: this.properties.localListConfirmed ? 'Press button to check/create: ' + this.properties.localListName : 'Verify or Create your list!'
                 }),
 
                 PropertyPaneTextField('localListName', {
