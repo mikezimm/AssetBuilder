@@ -4,7 +4,7 @@ This is where you include your WebPart documentation.
 
 ### Build Sequence
 ```bash
-npm install @pnp/sp @pnp/graph --save
+npm install @pnp/sp @pnp/graph --save  (May not be required....)
 npm install @pnp/spfx-controls-react --save --save-exact
 
 ```
