@@ -37,7 +37,7 @@ export interface IAssetBuilderWebPartProps {
 
 const LOG_SOURCE: string = 'RedirectApplicationCustomizer';
 
-
+import { getHelpfullError, } from '../../services/ErrorHandler';
 
 export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBuilderWebPartProps> {
 
@@ -136,7 +136,7 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
             alert(`Your ${myListName} list is already set up!`);
           } catch (e) {
             // if any of the fields does not exist, raise an exception in the console log
-            let errMessage = this.getHelpfullError(e);
+            let errMessage = getHelpfullError(e);
             console.log(`The ${myListName} list had this error:`, errMessage);
 
           }
@@ -324,7 +324,7 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
             alert(`Your ${myListName} list is already set up!`);
           } catch (e) {
             // if any of the fields does not exist, raise an exception in the console log
-            let errMessage = this.getHelpfullError(e);
+            let errMessage = getHelpfullError(e);
             alert(`The ${myListName} list had this error so the webpart may not work correctly unless fixed:  ` + errMessage);
             console.log(`The ${myListName} list had this error:`, errMessage);
 
@@ -338,25 +338,6 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
 
     return(result);
   }
-
-
-
-  public getHelpfullError(e){
-    let result = 'e';
-    let errObj: {} = null;
-      if (e.message) {
-        let loc1 = e.message.indexOf("{\"");
-        if (loc1 > 0) {
-          result = e.message.substring(loc1);
-          errObj = JSON.parse(result);
-        }
-    }
-    result = errObj['odata.error']['message']['value'];
-    console.log('errObj:',errObj);
-    console.log('result:',result);
-    return result;
-  }
-  
 
   private CreateTTIMTimeList(oldVal: any): any {
 
