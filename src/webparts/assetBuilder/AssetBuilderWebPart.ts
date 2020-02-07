@@ -121,7 +121,8 @@ export default class AssetBuilderWebPart extends BaseClientSideWebPart<IAssetBui
       const ensureResult = await sp.web.lists.ensure(myListName,
         myListDesc,
         100,
-        true);
+        true,
+        { EnableVersioning: true, MajorVersionLimit: 20});
 
       // if we've got the list
       if (ensureResult.list != null) {
@@ -270,7 +271,8 @@ private CreateTTIMProjectList(oldVal: any): any {
       const ensureResult = await sp.web.lists.ensure(myListName,
         myListDesc,
         100,
-        true);
+        true,
+        { EnableVersioning: true, MajorVersionLimit: 20});
 
       // if we've got the list
       if (ensureResult.list != null) {
@@ -539,7 +541,8 @@ private async ensureOurTilesList(myListName: string, myListDesc: string): Promis
     const ensureResult = await sp.web.lists.ensure(myListName,
       myListDesc,
       100,
-      true);
+      true,
+      { EnableVersioning: true, MajorVersionLimit: 20});
 
     // if we've got the list
     if (ensureResult.list != null) {
@@ -729,7 +732,7 @@ private async ensureOurTilesList(myListName: string, myListDesc: string): Promis
   protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {  
     if (propertyPath === 'localListName' &&  newValue) {  
       this.properties.localListName=newValue;  
-    };
+    }
     this.properties.lastUpdate = buildStatus;
     this.context.propertyPane.refresh();
     this.render();
